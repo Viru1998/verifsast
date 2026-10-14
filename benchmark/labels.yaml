@@ -1,0 +1,705 @@
+cases:
+  # ── SQL Injection (CWE-89) ───────────────────────────────────────────────────
+  - file: cases/sqli/vuln_01.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "% string format operator embeds user input into SQL execute()"
+
+  - file: cases/sqli/vuln_02.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "f-string embeds user input directly into SELECT and DELETE queries"
+
+  - file: cases/sqli/vuln_03.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "String concatenation (+ operator) builds SQL from user input"
+
+  - file: cases/sqli/vuln_04.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: ".format() interpolates user-controlled slug and status into SQL"
+
+  - file: cases/sqli/vuln_05.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "Dynamic ORDER BY clause built with string concatenation from user input"
+
+  - file: cases/sqli/vuln_06.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "Flask request.args values concatenated or f-stringed into SQL queries"
+
+  - file: cases/sqli/vuln_07.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "Python % operator (not psycopg2 params) formats user input into SQL before driver sees it"
+
+  - file: cases/sqli/vuln_08.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "Multi-parameter login query built with Python % formatting — both username and password injectable"
+
+  - file: cases/sqli/vuln_09.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "UPDATE statements built with f-strings from user-supplied email, bio, and location"
+
+  - file: cases/sqli/vuln_10.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: vulnerable
+    description: "DELETE statement with concatenated table name and condition — both from user input"
+
+  - file: cases/sqli/safe_01.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "sqlite3 ? placeholder with parameter tuple — canonical safe pattern"
+
+  - file: cases/sqli/safe_02.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "psycopg2 %s placeholder (driver parameterisation, NOT Python % formatting)"
+
+  - file: cases/sqli/safe_03.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "SQLAlchemy ORM .filter() — ORM generates parameterised queries internally"
+
+  - file: cases/sqli/safe_04.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "Fully hardcoded SQL queries with zero user-controlled input"
+
+  - file: cases/sqli/safe_05.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "SQLAlchemy text() with named :param bindparams"
+
+  - file: cases/sqli/safe_06.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "sqlite3 named dict params (:name placeholders) with parameter dict"
+
+  - file: cases/sqli/safe_07.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "Column name validated against a whitelist set before f-string use; value uses ? placeholder"
+
+  - file: cases/sqli/safe_08.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "User input cast to int() before parameterised query — non-integer raises ValueError"
+
+  - file: cases/sqli/safe_09.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "Django ORM .filter() — framework generates parameterised SQL"
+
+  - file: cases/sqli/safe_10.py
+    class: sqli
+    cwe: CWE-89
+    owasp: A05
+    label: safe
+    description: "Builds SQL-like display/log strings that are never executed against a database"
+
+  # ── OS Command Injection (CWE-78) ────────────────────────────────────────────
+  - file: cases/cmdi/vuln_01.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "os.system() with user input concatenated into the shell command string"
+
+  - file: cases/cmdi/vuln_02.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "subprocess.call(shell=True) with command string built from user input"
+
+  - file: cases/cmdi/vuln_03.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "subprocess.run(f-string, shell=True) — f-string embeds user-controlled host/domain"
+
+  - file: cases/cmdi/vuln_04.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "os.popen('ls ' + path) — popen opens a shell with user-controlled argument"
+
+  - file: cases/cmdi/vuln_05.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "subprocess.Popen(shell=True) with .format()-built command string from user input"
+
+  - file: cases/cmdi/vuln_06.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "eval(user_code) — arbitrary Python code execution from user input"
+
+  - file: cases/cmdi/vuln_07.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "exec(user_code) — arbitrary Python code execution via exec()"
+
+  - file: cases/cmdi/vuln_08.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "subprocess.check_output('grep ' + pattern, shell=True) — user pattern injectable"
+
+  - file: cases/cmdi/vuln_09.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "os.system() with .format()-built command from user-controlled paths and values"
+
+  - file: cases/cmdi/vuln_10.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: vulnerable
+    description: "Flask route passes request.args values to subprocess.run(shell=True)"
+
+  - file: cases/cmdi/safe_01.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "subprocess.run([cmd, arg1, arg2]) — list form bypasses shell entirely"
+
+  - file: cases/cmdi/safe_02.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "shlex.split() to tokenise command; user value appended as separate list element"
+
+  - file: cases/cmdi/safe_03.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "shlex.quote() wraps user input so shell treats it as a single literal argument"
+
+  - file: cases/cmdi/safe_04.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "Hardcoded commands only — no user input reaches any subprocess call"
+
+  - file: cases/cmdi/safe_05.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "subprocess.call([cmd, arg], shell=False) — explicit list, no shell"
+
+  - file: cases/cmdi/safe_06.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "Command selected from a whitelist dict; user only supplies the key, not the command"
+
+  - file: cases/cmdi/safe_07.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "subprocess.run() with explicit shell=False and list arguments"
+
+  - file: cases/cmdi/safe_08.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "os.system() called only with hardcoded literal strings"
+
+  - file: cases/cmdi/safe_09.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "Input validated against strict [a-zA-Z0-9._-]+ regex before use in subprocess list"
+
+  - file: cases/cmdi/safe_10.py
+    class: cmdi
+    cwe: CWE-78
+    owasp: A03
+    label: safe
+    description: "File operations performed with pathlib/shutil — no shell subprocess invoked at all"
+
+  # ── Path Traversal (CWE-22) ──────────────────────────────────────────────────
+  - file: cases/path_traversal/vuln_01.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "open(user_filename) with no sanitisation — direct file read from user-supplied path"
+
+  - file: cases/path_traversal/vuln_02.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "os.path.join(base, user_path) without realpath check — absolute paths override base"
+
+  - file: cases/path_traversal/vuln_03.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "Flask send_file(os.path.join(base, request.args.get('file'))) — no boundary check"
+
+  - file: cases/path_traversal/vuln_04.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "shutil.copy(src, user_dest) — user controls destination path, can overwrite arbitrary files"
+
+  - file: cases/path_traversal/vuln_05.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "base_dir + '/' + filename — string concatenation allows '../' escape sequences"
+
+  - file: cases/path_traversal/vuln_06.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "zipfile.ZipFile.extract(member_name) with user-controlled member — zip slip vulnerability"
+
+  - file: cases/path_traversal/vuln_07.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "tarfile.extract() and extractall() without member validation — tar slip vulnerability"
+
+  - file: cases/path_traversal/vuln_08.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "URL-decoded path parameter used directly in file open — double-decode traversal"
+
+  - file: cases/path_traversal/vuln_09.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "os.listdir(user_dir) and os.walk(base/subdir) with user-controlled directory"
+
+  - file: cases/path_traversal/vuln_10.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: vulnerable
+    description: "pathlib.Path(base) / user_path without .resolve() + is_relative_to() check"
+
+  - file: cases/path_traversal/safe_01.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "os.path.realpath() resolves symlinks; assert startswith(base + sep) enforces boundary"
+
+  - file: cases/path_traversal/safe_02.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "pathlib.Path.resolve() + is_relative_to(base) — idiomatic Python 3.9+ confinement"
+
+  - file: cases/path_traversal/safe_03.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "os.path.basename() strips all directory components before building the path"
+
+  - file: cases/path_traversal/safe_04.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "File path selected from a hardcoded whitelist dict — user only chooses a key"
+
+  - file: cases/path_traversal/safe_05.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "Flask with werkzeug.utils.safe_join() — raises exception if path would escape base"
+
+  - file: cases/path_traversal/safe_06.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "Fully hardcoded file paths — no user input in any open() call"
+
+  - file: cases/path_traversal/safe_07.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "os.path.basename() + enforced .txt-only extension whitelist"
+
+  - file: cases/path_traversal/safe_08.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "zipfile extract with per-member validation — rejects absolute paths and '..' components"
+
+  - file: cases/path_traversal/safe_09.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "tarfile safe extract — validates each member for absolute paths, '..' and symlink escapes"
+
+  - file: cases/path_traversal/safe_10.py
+    class: path_traversal
+    cwe: CWE-22
+    owasp: A01
+    label: safe
+    description: "Filename sanitised to alphanum+hyphen+dot via strict regex after basename stripping"
+
+  # ── Hardcoded Secrets (CWE-798) ──────────────────────────────────────────────
+  - file: cases/secrets/vuln_01.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "password = 'hunter2' and ADMIN_PIN = '123456' hardcoded as string literals"
+
+  - file: cases/secrets/vuln_02.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "API_KEY = 'sk-abcdef...' hardcoded and used directly in Authorization header"
+
+  - file: cases/secrets/vuln_03.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "AWS_SECRET_ACCESS_KEY = 'wJalrXUtnFEMI/K7MDENG/bPxRfiCYEXAMPLEKEY' hardcoded"
+
+  - file: cases/secrets/vuln_04.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "JWT_SECRET = 'supersecretjwtkey123' hardcoded — used to sign and verify tokens"
+
+  - file: cases/secrets/vuln_05.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "DATABASE_URL includes username and password as a hardcoded connection string literal"
+
+  - file: cases/secrets/vuln_06.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "STRIPE_SECRET_KEY = 'sk_live_abcdefghijklmnop' hardcoded Stripe live key"
+
+  - file: cases/secrets/vuln_07.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "SMTP_PASSWORD = 'MyEmailPass123!' hardcoded inside EMAIL_CONFIG dict"
+
+  - file: cases/secrets/vuln_08.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "RSA private key PEM string hardcoded as a multi-line string literal"
+
+  - file: cases/secrets/vuln_09.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "GITHUB_TOKEN = 'ghp_xxx...' hardcoded GitHub PAT used in API requests"
+
+  - file: cases/secrets/vuln_10.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: vulnerable
+    description: "SECRET_KEY = 'django-insecure-...' and DATABASE PASSWORD hardcoded in settings"
+
+  - file: cases/secrets/safe_01.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "password = os.environ['DB_PASSWORD'] — raises KeyError if unset, never hardcoded"
+
+  - file: cases/secrets/safe_02.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "api_key = os.getenv('API_KEY') with explicit EnvironmentError if missing"
+
+  - file: cases/secrets/safe_03.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "Secrets loaded from .env file via python-dotenv; nothing hardcoded in source"
+
+  - file: cases/secrets/safe_04.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "Password passed as a required function parameter with no default value"
+
+  - file: cases/secrets/safe_05.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "os.environ.get('SECRET_KEY', '') — empty string fallback, no real secret in source"
+
+  - file: cases/secrets/safe_06.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "Configuration loaded from an external JSON file outside version control"
+
+  - file: cases/secrets/safe_07.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "Placeholder string 'change-me-in-production' — near-miss FP test for scanner classification"
+
+  - file: cases/secrets/safe_08.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "keyring.get_password('myapp', 'api_key') retrieves secret from OS credential store"
+
+  - file: cases/secrets/safe_09.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "password = getpass.getpass() reads credentials interactively at runtime"
+
+  - file: cases/secrets/safe_10.py
+    class: secrets
+    cwe: CWE-798
+    owasp: A07
+    label: safe
+    description: "SECRET = '{{ SECRET_KEY }}' — Jinja2/Ansible template placeholder, not a real secret"
+
+  # ── Insecure Deserialisation (CWE-502) ───────────────────────────────────────
+  - file: cases/deserialisation/vuln_01.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "pickle.loads(user_data) — unpickling attacker-supplied bytes achieves RCE"
+
+  - file: cases/deserialisation/vuln_02.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "pickle.load(open(user_file, 'rb')) — user controls the file path containing pickle data"
+
+  - file: cases/deserialisation/vuln_03.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "yaml.load(user_input) without Loader argument — Bandit B506 unsafe YAML load"
+
+  - file: cases/deserialisation/vuln_04.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "yaml.load(data, Loader=yaml.Loader) — full unsafe Loader allows arbitrary object construction"
+
+  - file: cases/deserialisation/vuln_05.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "yaml.load(data, Loader=yaml.UnsafeLoader) — explicitly unsafe Loader"
+
+  - file: cases/deserialisation/vuln_06.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "cPickle.loads(data) — C-accelerated pickle deserialisation of untrusted bytes"
+
+  - file: cases/deserialisation/vuln_07.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "marshal.loads(user_bytes) — Bandit B302 — unsafe deserialisation of Python bytecode"
+
+  - file: cases/deserialisation/vuln_08.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "jsonpickle.decode(user_json) — jsonpickle can reconstruct arbitrary Python objects"
+
+  - file: cases/deserialisation/vuln_09.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "pickle.loads() on bytes received from a TCP socket — network data unpickled without verification"
+
+  - file: cases/deserialisation/vuln_10.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: vulnerable
+    description: "shelve.open(user_path) — shelve uses pickle internally; user-controlled path enables RCE"
+
+  - file: cases/deserialisation/safe_01.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "json.loads(user_input) — JSON only produces primitive types; no code execution possible"
+
+  - file: cases/deserialisation/safe_02.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "yaml.safe_load(user_input) — restricted to standard YAML types; blocks !!python/object"
+
+  - file: cases/deserialisation/safe_03.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "yaml.load(data, Loader=yaml.SafeLoader) — explicit safe loader"
+
+  - file: cases/deserialisation/safe_04.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "pickle.loads() on hardcoded compile-time constant bytes — user input never reaches unpickle"
+
+  - file: cases/deserialisation/safe_05.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "json.load(open('config.json')) — hardcoded path, JSON format, no user input involved"
+
+  - file: cases/deserialisation/safe_06.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "ast.literal_eval(user_input) — safe for Python literals; rejects function calls and imports"
+
+  - file: cases/deserialisation/safe_07.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "yaml.load(data, Loader=yaml.CSafeLoader) — C-accelerated safe loader"
+
+  - file: cases/deserialisation/safe_08.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "tomllib.loads(config_str) — TOML is a data-only format; no code execution possible"
+
+  - file: cases/deserialisation/safe_09.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "configparser.ConfigParser() parses INI-format text — no code execution path"
+
+  - file: cases/deserialisation/safe_10.py
+    class: deserialisation
+    cwe: CWE-502
+    owasp: A08
+    label: safe
+    description: "pickle.loads() only after HMAC-SHA256 signature verification — tampered data rejected before unpickling"
