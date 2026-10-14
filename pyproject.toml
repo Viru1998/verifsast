@@ -1,0 +1,27 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "verifsast"
+version = "0.1.0"
+description = "A static analysis scanner that verifies before it reports"
+requires-python = ">=3.11"
+dependencies = [
+    "typer[all]>=0.12",
+    "pydantic>=2.0",
+    "rich>=13.0",
+]
+
+[project.optional-dependencies]
+llm = ["anthropic>=0.40"]
+dev = ["pytest>=8.0", "pytest-cov"]
+
+[project.scripts]
+verifsast = "verifsast.cli:app"
+
+[tool.hatch.build.targets.wheel]
+packages = ["verifsast"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
